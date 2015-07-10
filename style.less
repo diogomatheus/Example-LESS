@@ -1,0 +1,85 @@
+// Variable
+@text-color: #333;
+
+// Mixin
+.bordered {
+    // LESS function lighten and variable usage
+    border: solid 1px lighten(@text-color, 50%);
+}
+// Mixin with parameter
+.border-radius(@radius: 10px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+// Mixin clearfix hack
+.clearfix {
+    display: block;
+    zoom: 1;
+
+    // Nested and self reference
+    &:after {
+        content: " ";
+        display: block;
+        font-size: 0;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+}
+
+// Template
+body {
+    font-family: Helvetica,Arial,sans-serif;
+}
+.template-wrapper {
+    margin: auto;
+    width: 80%;
+    color: @text-color;
+}
+.template-title {
+    font-weight: lighter;
+}
+.comment-list {
+    margin: 0px;
+    padding: 10px;
+    list-style: none;
+    
+    // Mixins usage
+    .bordered;
+    .border-radius();
+
+    // Nested
+    li {
+        margin-top: 5px;
+        min-height: 150px;
+
+        .comment-avatar {
+	    // Local variable
+	    @image-size: 150px;
+            width: @image-size;
+            // Operations [15px]
+            padding-right: @image-size / 10;
+            float: left;
+
+	    img {
+	        // Mixins usage
+	        .bordered;
+	        .border-radius(5px);
+	    }
+        }
+
+        .comment-info {
+            h4 {
+                margin: 0px;
+                color: lighten(@text-color, 30%);
+            }
+            p {
+                color: lighten(@text-color, 40%);
+            }
+        }
+
+        // Mixin usage
+        .clearfix;
+    }
+}
